@@ -1,10 +1,9 @@
 [tool.poetry]
-name = "0-1"
+name = "aaa"
 version = "0.1.0"
 description = "HomeWork for Avito Academy"
 authors = ["Rustem Khutiev <76971769+PhenomenaPh@users.noreply.github.com>"]
 readme = "README.md"
-packages = [{include = "0"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -13,3 +12,6 @@ python = "^3.10"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 79

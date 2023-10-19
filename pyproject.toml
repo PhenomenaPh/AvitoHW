@@ -6,7 +6,8 @@ authors = ["Rustem Khutiev <76971769+PhenomenaPh@users.noreply.github.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = ">=3.10, < 3.13"
+numpy = "^1.26.1"
 
 
 [build-system]

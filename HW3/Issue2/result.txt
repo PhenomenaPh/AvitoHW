@@ -1,0 +1,43 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.10.11, pytest-7.4.3, pluggy-1.3.0
+rootdir: /Users/rustemhutiev/Desktop/SecondBrain/Avito/Python/HomeWork/HW3/Issue2
+collected 4 items
+
+test_morse.py ...F                                                       [100%]
+
+=================================== FAILURES ===================================
+__________ test_decode[-- --- .-. ... . / -.-. --- -.. .-MORSE CODE] ___________
+
+morse_message = '-- --- .-. ... . / -.-. --- -.. .', expected = 'MORSE CODE'
+
+    @pytest.mark.parametrize(
+        "morse_message, expected",
+        [
+            (".... . .-.. .-.. ---", "HELLO"),  # HELLO без пробелов
+            ("-- --- .-. ... .", "MORSE"),  # MORSE без пробелов
+            (".- .-.. .--. .... .-", "ALPHA"),  # ALPHA без пробелов
+            # Тест с пробелами, ожидается провал
+            ("-- --- .-. ... . / -.-. --- -.. .", "MORSE CODE"),
+        ],
+    )
+    def test_decode(morse_message, expected):
+>       assert decode(morse_message) == expected
+
+test_morse.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+morse.py:55: in decode
+    decoded_letters = [
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+.0 = <list_iterator object at 0x101f3ab90>
+
+    decoded_letters = [
+>       MORSE_TO_LETTER[letter] for letter in morse_message.split()
+    ]
+E   KeyError: '/'
+
+morse.py:56: KeyError
+=========================== short test summary info ============================
+FAILED test_morse.py::test_decode[-- --- .-. ... . / -.-. --- -.. .-MORSE CODE]
+========================= 1 failed, 3 passed in 0.02s ==========================
+All tests are done!

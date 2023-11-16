@@ -1,0 +1,21 @@
+Trying:
+    encode('SOS')  # doctest: +NORMALIZE_WHITESPACE
+Expecting:
+    '... --- ...'
+ok
+Trying:
+    encode('!')  # doctest: +IGNORE_EXCEPTION_DETAIL
+Expecting:
+    Traceback (most recent call last):
+    ...
+    KeyError: 'U'
+ok
+2 items had no tests:
+    morse
+    morse.decode
+1 items passed all tests:
+   2 tests in morse.encode
+2 tests in 3 items.
+2 passed and 0 failed.
+Test passed.
+All tests are done!

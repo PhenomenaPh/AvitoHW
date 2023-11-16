@@ -5,8 +5,9 @@ from typing import List
 import click
 
 
-# Декоратор для логирования
 def log(func):
+    """Декоратор для логирования времени выполнения функции."""
+
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         start_time = time.time()
@@ -18,8 +19,9 @@ def log(func):
     return wrapper
 
 
-# Декоратор с шаблоном
 def log_with_template(template):
+    """Декоратор для логирования с форматированным сообщением."""
+
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
@@ -35,6 +37,14 @@ def log_with_template(template):
 
 
 class Pizza:
+    """Базовый класс для всех видов пиццы.
+
+    Атрибуты:
+        size (str): Размер пиццы.
+        base_price (int): Базовая цена.
+        ingredients (List[str]): Список ингредиентов.
+    """
+
     def __init__(self, size: str) -> None:
         if size not in ["L", "XL"]:
             raise ValueError(f"Invalid pizza size: {size}")
@@ -42,18 +52,18 @@ class Pizza:
         self.base_price = 5 if size == "L" else 15 if size == "XL" else 0
         self.ingredients: List[str] = []
 
-    def add_ingredients(self, ingredients: str) -> None:
-        self.ingredients.append(ingredients)
+    def add_ingredients(self, ingredient: str) -> None:
+        """Добавляет ингредиент к пицце."""
+        self.ingredients.append(ingredient)
 
     def calculate_price(self) -> int:
+        """Рассчитывает и возвращает общую цену пиццы."""
         return self.base_price + len(self.ingredients) * 3
-
-    def __str__(self) -> str:
-        ingredients_str = ", ".join(self.ingredients)
-        return f"{self.size} pizza with {ingredients_str} - ${self.calculate_price()}"
 
 
 class Margherita(Pizza):
+    """Пицца Маргарита, подкласс Pizza."""
+
     def __init__(self, size: str) -> None:
         super().__init__(size)
         self.add_ingredients("Tomato Sauce")
@@ -62,6 +72,8 @@ class Margherita(Pizza):
 
 
 class Hawaiian(Pizza):
+    """Пицца Гавайская, подкласс Pizza."""
+
     def __init__(self, size: str) -> None:
         super().__init__(size)
         self.add_ingredients("Tomato Sauce")
@@ -71,6 +83,8 @@ class Hawaiian(Pizza):
 
 
 class Pepperoni(Pizza):
+    """Пицца Пепперони, подкласс Pizza."""
+
     def __init__(self, size: str):
         super().__init__(size)
         self.add_ingredients("Tomato Sauce")
@@ -79,15 +93,12 @@ class Pepperoni(Pizza):
 
 
 def order():
+    """Запускает процесс заказа пиццы."""
     print("Welcome to our Pizza Ordering System!")
     pizza_type = input("Choose a pizza (Margherita, Hawaiian, Pepperoni): ")
     size = input("Choose the size (L/XL): ")
 
-    if pizza_type not in [
-        "Margherita",
-        "Hawaiian",
-        "Pepperoni",
-    ] or size not in ["L", "XL"]:
+    if pizza_type not in ["Margherita", "Hawaiian", "Pepperoni"] or size not in ["L", "XL"]:
         print("Invalid selection. Please try again.")
         return
 
@@ -110,21 +121,21 @@ def order():
 
 @click.group()
 def cli():
+    """CLI для управления системой заказа пиццы."""
     pass
 
 
 @cli.command()
 @log
 def menu():
-    """Display the pizza menu."""
-    time.sleep(1)  # Имитация задержки
+    """Отображает меню доступных пицц."""
     print("Menu:\n1. Margherita\n2. Hawaiian\n3. Pepperoni")
 
 
 @cli.command()
 @log_with_template(" Заказ выполнен за {:.2f}с!")
 def make_order():
-    """Order a pizza."""
+    """Обрабатывает создание заказа пиццы через CLI."""
     order()
 
 
